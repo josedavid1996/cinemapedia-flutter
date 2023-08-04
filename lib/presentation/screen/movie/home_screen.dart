@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/providers.dart';
+import '../../widgets/shared/full_screen_loader.dart';
 import '../../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -38,6 +39,9 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final initialLoading = ref.watch(initialLoadingProvider);
+    if (initialLoading) return const FullScreenLoader();
+
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProviders);
     final popularMovies = ref.watch(popularMoviesProviders);
@@ -74,7 +78,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                 loadNextPage: () =>
                     ref.read(upcomingMoviesProviders.notifier).loadNextPage()),
             MovieHorizontalListview(
-                movies: nowPlayingMovies,
+                movies: popularMovies,
                 title: 'Populares',
                 // subTitle: '',
                 loadNextPage: () => ref
