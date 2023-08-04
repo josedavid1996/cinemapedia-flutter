@@ -14,16 +14,15 @@ class CustomAppbar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SizedBox(
             width: double.infinity,
-            child: Row(children: [
-              Icon(
-                Icons.movie_outlined,
-                color: colors.primary,
-              ),
-              const SizedBox(width: 5),
-              Text("Cinemapedia", style: titleStyle),
-              const Spacer(),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-            ]),
+            child: Row(
+              children: [
+                Icon(Icons.movie_outlined, color: colors.primary),
+                const SizedBox(width: 5),
+                Text('Cinemapedia', style: titleStyle),
+                const Spacer(),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+              ],
+            ),
           ),
         ));
   }
