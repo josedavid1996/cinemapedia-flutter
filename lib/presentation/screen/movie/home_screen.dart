@@ -32,13 +32,17 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     ref.read(nowPlayingMoviesProviders.notifier).loadNextPage();
     ref.read(popularMoviesProviders.notifier).loadNextPage();
+    ref.read(topRatedMoviesProviders.notifier).loadNextPage();
+    ref.read(upcomingMoviesProviders.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
-    final nowPlayingMovies = ref.watch(nowPlayingMoviesProviders);
-    final pupularMovies = ref.watch(popularMoviesProviders);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProviders);
+    final popularMovies = ref.watch(popularMoviesProviders);
+    final topRatedMovies = ref.watch(topRatedMoviesProviders);
+    final upcomingMovies = ref.watch(upcomingMoviesProviders);
 
     return CustomScrollView(slivers: [
       const SliverAppBar(
@@ -64,11 +68,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     .loadNextPage()),
 
             MovieHorizontalListview(
-                movies: pupularMovies,
+                movies: upcomingMovies,
                 title: 'Próximamente',
                 subTitle: 'En este mes',
                 loadNextPage: () =>
-                    ref.read(popularMoviesProviders.notifier).loadNextPage()),
+                    ref.read(upcomingMoviesProviders.notifier).loadNextPage()),
             MovieHorizontalListview(
                 movies: nowPlayingMovies,
                 title: 'Populares',
@@ -78,12 +82,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     .loadNextPage()),
 
             MovieHorizontalListview(
-                movies: nowPlayingMovies,
+                movies: topRatedMovies,
                 title: 'Mejor calificadas',
                 subTitle: 'Desde siempre',
-                loadNextPage: () => ref
-                    .read(nowPlayingMoviesProviders.notifier)
-                    .loadNextPage()),
+                loadNextPage: () =>
+                    ref.read(topRatedMoviesProviders.notifier).loadNextPage()),
 
             const SizedBox(height: 10),
           ],
