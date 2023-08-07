@@ -1,6 +1,6 @@
 class MovieDetails {
   final bool adult;
-  final String backdropPath;
+  final String? backdropPath;
   final BelongsToCollection? belongsToCollection;
   final int budget;
   final List<Genre> genres;
