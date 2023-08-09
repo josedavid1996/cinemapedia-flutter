@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../config/domain/entities/movie.dart';
 import '../../providers/actors/actors_by_movie_provider.dart';
 import '../../providers/movies/movie_info_provider.dart';
+import '../../providers/providers.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   static const name = "movie-screen";
@@ -166,13 +167,13 @@ class _ActorsByMovie extends ConsumerWidget {
   }
 }
 
-class _CustomSliverAppBar extends StatelessWidget {
+class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
 
   const _CustomSliverAppBar({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     final size = MediaQuery.of(context).size;
 
     return SliverAppBar(
@@ -180,7 +181,12 @@ class _CustomSliverAppBar extends StatelessWidget {
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
       actions: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border))
+        IconButton(
+            onPressed: () {
+              // TODO poner el toggle
+              ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+            },
+            icon: const Icon(Icons.favorite_border))
         // icon: const Icon(Icons.favorite_rounded, color: Colors.red))
       ],
       flexibleSpace: FlexibleSpaceBar(
